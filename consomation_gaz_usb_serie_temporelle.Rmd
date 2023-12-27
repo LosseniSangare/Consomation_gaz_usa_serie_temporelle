@@ -1,0 +1,27 @@
+---
+title: "initiontion_serie_temporelle"
+author: "Losseni SANGARE"
+output: html_document
+---
+```{r}
+install.packages("TSstudio")
+library(TSstudio)
+```
+
+cette série concerne la consomation de gaz naturel au USA
+pour obtenir ces données chargeons la série USgas
+
+```{r}
+data("USgas")
+USgas
+class(USgas)
+```
+On voit bien qu'il s'agit des de la consomation mensuelle de gaz naturelle entre 2000 et 2019.
+en affichant la clase de USgas on voit qu'il s'agit d'objet TS qui represente des séries temporelles en R
+
+Passons a une visualisation de notre série
+
+```{r}
+plot.ts(USgas, main ="Consomation mensuelle de gaz naturel au USA", ylab = "MIlliards de pied cube")
+```
+
