@@ -1,0 +1,14 @@
+"0","class(US_indicators_mts)"
+"1","[1]"
+"1"," ""mts""   "
+"1"," ""ts""    "
+"1"," ""matrix"""
+"1"," ""array"" "
+"1","
+"
+"0","ts_info(US_indicators_mts)"
+"1"," The US_indicators_mts series is a mts object with 2 variables and 528 observations
+ Frequency: 12 
+ Start time: 1976 1 
+ End time: 2019 12 
+"

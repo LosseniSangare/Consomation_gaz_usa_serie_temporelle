@@ -1,0 +1,3 @@
+"0","vehicule_sale <-US_indicators %>% "
+"0","  select(Date,`Vehicle Sales`) %>% "
+"0","    arrange(Date) # ranger la date par ordre croissant"

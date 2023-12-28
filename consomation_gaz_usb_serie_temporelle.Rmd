@@ -3,25 +3,76 @@ title: "initiontion_serie_temporelle"
 author: "Losseni SANGARE"
 output: html_document
 ---
+
+# Série temporelle, Consomation de caz naturel au USA
+
 ```{r}
+options(repos = c(CRAN = "https://cran.r-project.org"))# pour permettre l'execution du fichier r-markdown (Knit)
 install.packages("TSstudio")
 library(TSstudio)
 ```
 
-cette série concerne la consomation de gaz naturel au USA
-pour obtenir ces données chargeons la série USgas
+cette série concerne la consomation de gaz naturel au USA pour obtenir ces données chargeons la série USgas
 
 ```{r}
 data("USgas")
 USgas
 class(USgas)
 ```
-On voit bien qu'il s'agit des de la consomation mensuelle de gaz naturelle entre 2000 et 2019.
-en affichant la clase de USgas on voit qu'il s'agit d'objet TS qui represente des séries temporelles en R
+
+On voit bien qu'il s'agit des de la consomation mensuelle de gaz naturelle entre 2000 et 2019. en affichant la clase de USgas on voit qu'il s'agit d'objet TS qui represente des séries temporelles en R
 
 Passons a une visualisation de notre série
 
 ```{r}
-plot.ts(USgas, main ="Consomation mensuelle de gaz naturel au USA", ylab = "MIlliards de pied cube")
+plot.ts(USgas, main ="Consomation mensuelle de gaz naturel au USA", ylab = "Milliards de pied cube")
 ```
 
+```{r}
+length(USgas)
+```
+
+```{r}
+ts_info(USgas)
+```
+
+## extraction et visualisation de la serie de janvier 2000 à avril 2015
+
+```{r}
+USgas_extrait = window(USgas, start=c(2000,1), end= c(2015,4), frequency=12)
+USgas_extrait
+```
+## visualisation 
+```{r}
+plot.ts(
+  USgas_extrait,
+  main = "Consomation mensuel de gaé naturel entre Janv 2000 et Avril 2015",
+  ylab = "Milliards de pied cube",
+  lwd = 3,
+)
+```
+
+
+## aggregation et vusualisation par an de la consomation 
+
+```{r}
+USgas_year = aggregate(
+  USgas,
+  frequency=1,
+  FUN = "sum"
+)
+USgas_year
+```
+
+visualisation de la consomation 
+
+```{r}
+plot.ts(
+  USgas_year,
+  main="consomation annuelle de gaz naturelle ",
+  ylab ="Milliards de pied cube",
+  lwd=4,
+  col="#6666ee"
+)
+```
+on remarque une forte croissanse de la consomation de gaz naturel depuis 2006

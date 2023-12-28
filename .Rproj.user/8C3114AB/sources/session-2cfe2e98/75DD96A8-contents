@@ -1,0 +1,90 @@
+---
+title: "init_time-series"
+author: "Losseni SANGARE"
+date: "2023-12-27"
+output: html_document
+---
+
+```{r}
+library(TSstudio)
+library(dplyr)
+library(tidyverse)
+```
+
+
+## Creation de de TS fictive
+```{r}
+my_ts <- ts(
+  data = 1:60,
+  start= c(2010,1),#commence en javier 2010
+  end = c(2014,12), # se termine en décembre 2014
+  frequency = 12
+)
+
+my_ts
+```
+```{r}
+ts_info(my_ts)
+```
+
+##importation des ventes mensuelles toal de vehicule et le taux de chaumaghe aux USA
+
+```{r}
+data("US_indicators")
+head(US_indicators)
+```
+## Analyse exploratoire
+
+```{r}
+str(US_indicators)
+```
+```{r}
+summary(US_indicators)
+```
+
+## Transformation des ventes de vehicule en TS
+Exttraction des ventes de vehicule du dataframe US_indicators 
+```{r}
+vehicule_sale <-US_indicators %>% 
+  select(Date,`Vehicle Sales`) %>% 
+    arrange(Date) # ranger la date par ordre croissant
+```
+
+Transformation en TS
+```{r}
+date_debut = c(year(min(vehicule_sale$Date)),month(min(vehicule_sale$Date)))
+vehicule_sale_ts <- ts(
+  data = vehicule_sale$`Vehicle Sales`,
+  start = date_debut,
+  frequency = 12
+)
+
+vehicule_sale_ts
+
+```
+
+## transformation de toute la dataframe en mts 
+selection deux variable sauf date
+```{r}
+US_indicators_ts = US_indicators %>% 
+  arrange(Date) %>% 
+  select(-Date)
+
+```
+
+transformation en mts
+
+```{r}
+US_indicators_mts = ts(
+  data = US_indicators_ts,
+  start = date_debut,
+  frequency = 12
+)
+US_indicators_mts
+```
+
+```{r}
+class(US_indicators_mts)
+ts_info(US_indicators_mts)
+```
+
